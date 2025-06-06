@@ -1,0 +1,42 @@
+.locker-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr); /* 5 box per riga, cambia se vuoi */
+  gap: 15px;
+  margin-top: 20px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.locker-box {
+  border: 2px solid #333;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+  cursor: default;
+  user-select: none;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.locker-box.free {
+  background-color: #d4edda; /* verde chiaro */
+  border-color: #28a745; /* verde scuro */
+  color: #155724;
+}
+
+.locker-box.occupied {
+  background-color: #f8d7da; /* rosso chiaro */
+  border-color: #dc3545; /* rosso scuro */
+  color: #721c24;
+}
+
+.locker-number {
+  font-size: 1.4rem;
+  margin-bottom: 10px;
+}
+
+.locker-status {
+  font-size: 1rem;
+}
