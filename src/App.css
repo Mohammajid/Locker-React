@@ -1,42 +1,34 @@
-.locker-grid {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr); /* 5 box per riga, cambia se vuoi */
-  gap: 15px;
-  margin-top: 20px;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
+html,
+body {
+  width: 100%;
+  margin: 0;
+  padding: 0;
 }
 
-.locker-box {
-  border: 2px solid #333;
-  border-radius: 8px;
-  padding: 20px;
+body {
+  display: flex;
+  justify-content: center; /* centro orizzontale */
+  align-items: center; /* centro verticale */
+  min-height: 100vh; /* altezza minima tutta altezza viewport */
+  margin: 0;
+}
+
+.home-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  gap: 2rem;
+}
+
+.home-button {
+  font-size: 2rem;
+  padding: 10rem 13rem;
+  border-radius: 0.5rem;
+  background-color: #4a90e2;
+  color: white;
+  cursor: pointer;
+  box-shadow: 5 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.15s ease-in-out;
   text-align: center;
-  font-weight: bold;
-  font-size: 1.2rem;
-  cursor: default;
-  user-select: none;
-  transition: background-color 0.3s, border-color 0.3s;
-}
-
-.locker-box.free {
-  background-color: #d4edda; /* verde chiaro */
-  border-color: #28a745; /* verde scuro */
-  color: #155724;
-}
-
-.locker-box.occupied {
-  background-color: #f8d7da; /* rosso chiaro */
-  border-color: #dc3545; /* rosso scuro */
-  color: #721c24;
-}
-
-.locker-number {
-  font-size: 1.4rem;
-  margin-bottom: 10px;
-}
-
-.locker-status {
-  font-size: 1rem;
 }

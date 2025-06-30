@@ -1,14 +1,19 @@
-// src/App.jsx
 import React from "react";
-import LockerGrid from "./components/BoxList"; // usa il nome del file reale
+import Home from "./pages/Home";
+import LockerGrid from "./pages/DepositoPage";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
+import RitiraPage from "./pages/RitiraPage";
 
 function App() {
   return (
-    <div>
-      <h1>Gestione Locker</h1>
-      <LockerGrid />
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/deposita" element={<LockerGrid />} />
+        <Route path="/ritira" element={<RitiraPage />} />
+      </Routes>
+    </Router>
   );
 }
 

@@ -1,0 +1,118 @@
+b/* Style.css */
+
+/* Contenitore principale */
+.locker-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Titolo */
+.locker-container h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: #333;
+  text-align: center;
+  position: absolute;
+ top: 10px;
+ left: 50%;
+ transform: translateX(-50%);
+}
+
+
+
+
+/* Controlli */
+.controls {
+  margin-bottom: 2rem;
+  text-align: center;
+  margin-top: 50px;
+ 
+}
+
+.controls label {
+  font-size: 1.2rem;
+  margin-right: 1rem;
+}
+
+.controls select {
+  padding: 10px;
+  font-size: 1rem;
+  margin-right: 1rem;
+}
+
+.controls button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.controls button:hover {
+  background-color: #45a049;
+}
+
+/* Messaggi */
+.message {
+  margin-top: 1rem;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.message.success {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.message.error {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+/* Griglia */
+.locker-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 10px;
+}
+
+/* Box */
+.locker-box {
+  padding: 20px;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 1rem;
+  color: white;
+  cursor: default;
+}
+
+.locker-box.free {
+  background-color: #4caf50;
+}
+
+.locker-box.occupied {
+  background-color: #f44336;
+}
+
+.locker-box.disable {
+  background-color: #9e9e9e;
+}
+
+/* Numero e stato del box */
+.locker-number {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.locker-status {
+  font-size: 1rem;
+  margin-top: 15px;
+}

@@ -1,44 +1,45 @@
-const API_URL = "http://localhost:8080/api"; // cambia se hai una porta diversa
+// src/services/api.js
+const API_URL = "http://localhost:8080/api/user";
 
+// Ottieni tutti i box
 export async function getAllBoxes() {
   const response = await fetch(`${API_URL}/all`);
   if (!response.ok) throw new Error("Errore nel recupero dei box");
-  return response.json();
+  const json = await response.json();
+  if (json.success && Array.isArray(json.data)) return json.data;
+  throw new Error("Struttura dati non valida per i box");
 }
 
-export async function deposita() {
-  const response = await fetch("http://localhost:8080/api/deposita", {
+// Deposita in un box specifico
+export async function depositaInBox(numeroBox, codice, telefono) {
+  const response = await fetch(`${API_URL}/deposita/${numeroBox}`, {
     method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ codice, telefono }),
   });
 
-  const text = await response.text(); // leggo la risposta grezza
-  console.log("Raw deposito response:", text);
+  const json = await response.json();
 
   if (!response.ok) {
-    throw new Error(`Errore deposito: ${text}`)
+    const errorBody = await response.json();
+    throw new Error(errorBody.message || "Errore durante il deposito");
   }
-
-  try {
-    return JSON.parse(text);
-  } catch (e) {
-    throw new Error(`Errore parsing JSON: ${text}`);
-  }
+  return json.data; // { numeroBox, codice }
 }
 
-
-
-
-
-export async function ritira(codice){
+// Ritira un pacco
+export async function ritira(codice, telefono) {
   const response = await fetch(`${API_URL}/ritira`, {
-    method: "post",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({codice}),
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      codice: Number(codice),
+      telefono: Number(telefono),
+    })
   });
-
-  if (!response.ok) throw new ErrorEvent("Errore nel ritiro")
-;
-return response.text();
+  const json = await response.json();
+  if (!response.ok || json.success === false) {
+    throw new Error(json.message || "Errore nel ritiro");
+  }
+  return json.message;
 }
