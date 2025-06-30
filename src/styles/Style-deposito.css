@@ -23,7 +23,16 @@ b/* Style.css */
  transform: translateX(-50%);
 }
 
+.locker-box.selected {
+  border: 3px solid #007bff;
+  background-color: #e6f0ff;
+}
 
+.prefisso{
+  margin: 20px;
+  height: 20px;
+  width: 30px;
+}
 
 
 /* Controlli */

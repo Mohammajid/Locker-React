@@ -9,7 +9,9 @@ export default function LockerGrid() {
   const [codice, setCodice] = useState("");
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
+  const [prefisso, setPrefisso] = useState("");
   const [telefono, setTelefono] = useState("");
+  const [confermaTel, setConfermaTel] = useState("");
 
   useEffect(() => {
     loadBoxes();
@@ -38,14 +40,24 @@ export default function LockerGrid() {
       return;
     }
 
+    if (!prefisso || prefisso.length !== 4) {
+      setError("Scegliere un prefisso valido");
+      return;
+    }
+
     if (!telefono || telefono.length !== 10) {
       setError("il numero di telefono deve essere valido a 10 cifre");
       return;
     }
 
+    if (!confermaTel ||confermaTel !== telefono) {
+      setError("il campo non puo essere vuoto e i due numeri devono essere uguali");
+      return;
+    }
+
     try {
       const { numeroBox } = await depositaInBox(selectedBox, codice, telefono); // ✅
-      setMessage(`Deposito completato nel box ${numeroBox}. PIN: ${codice}`);
+      setMessage(`Deposito completato nel box ${numeroBox}`);
 
       setError("");
       loadBoxes();
@@ -60,23 +72,33 @@ export default function LockerGrid() {
       <h1>Gestione Box</h1>
 
       <div className="controls">
-        <label htmlFor="box-select">Seleziona un box libero:</label>
-        <select
-          id="box-select"
-          value={selectedBox || ""}
-          onChange={(e) => setSelectedBox(parseInt(e.target.value))}
-        >
-          <option value="">-- Scegli un box --</option>
-          {boxes
-            .filter((b) => !b.used)
-            .map((box) => (
-              <option key={box.numeroBox} value={box.numeroBox}>
-                Box {box.numeroBox}
-              </option>
-            ))}
-        </select>
-
-        <label htmlFor="codice-input"> Inserisci codice zzzaaaa</label>
+        <div className="locker-grid">
+          {boxes.map((box) => {
+            const isSelected = selectedBox === box.numeroBox;
+            return (
+              <button
+                key={box.id}
+                className={`locker-box ${
+                  box.disable ? "disable" : box.used ? "occupied" : "free"
+                } ${isSelected ? "selected" : ""}`}
+                onClick={() => {
+                  if (!box.used && !box.disable) setSelectedBox(box.numeroBox);
+                }}
+                disabled={box.used || box.disable}
+              >
+                <div className="locker-number">Box {box.numeroBox}</div>
+                <div className="locker-status">
+                  {box.disable
+                    ? "Disattivato"
+                    : box.used
+                    ? "Occupato"
+                    : "Libero"}
+                </div>
+              </button>
+            );
+          })}
+        </div>
+        <label htmlFor="codice-input"> Inserisci codice </label>
         <input
           id="codice-input"
           type="text"
@@ -84,16 +106,31 @@ export default function LockerGrid() {
           value={codice}
           onChange={(e) => setCodice(e.target.value)}
         />
-
-        <label htmlFor="numero-telefono">Inserisci un numero di telefono</label>
-        <input
-          id="telefono-input"
-          type="text"
-          maxLength={10}
-          value={telefono}
-          onChange={(e) => setTelefono(e.target.value)}
-        />
-
+        <div>
+          <label htmlFor="prefisso-telefono">
+            {" "}
+            Inserisci numero di telefono
+          </label>{" "}
+          <input
+            className="prefisso"
+            maxLength={4}
+            value={prefisso}
+            onChange={(e) => setPrefisso(e.target.value)}
+          />
+          <input
+            id="telefono-input"
+            type="text"
+            maxLength={10}
+            value={telefono}
+            onChange={(e) => setTelefono(e.target.value)}
+          />
+          <input
+            type="ConfermaTelefono"
+            value={confermaTel}
+            maxLength={10}
+            onChange={(e) => setConfermaTel(e.target.value)}
+          />
+        </div>
         <button onClick={handleDepositaInBox}>
           Deposita nel box selezionato
         </button>
@@ -101,22 +138,6 @@ export default function LockerGrid() {
 
       {message && <p className="message success">{message}</p>}
       {error && <p className="message error">{error}</p>}
-
-      <div className="locker-grid">
-        {boxes.map((box) => (
-          <div
-            key={box.id}
-            className={`locker-box ${
-              box.disable ? "disable" : box.used ? "occupied" : "free"
-            }`}
-          >
-            <div className="locker-number">Box {box.numeroBox}</div>
-            <div className="locker-status">
-              {box.disable ? "Disattivato" : box.used ? "Occupato" : "Libero"}
-            </div>
-          </div>
-        ))}
-      </div>
     </div>
   );
 }
