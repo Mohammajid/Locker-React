@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { getAllBoxes, depositaInBox } from "../services/api";
-import "../App.css";
+import "../styles/App.css";
 import "../styles/Style-deposito.css";
+import { useTranslation } from "react-i18next";
 
 export default function LockerGrid() {
   const [boxes, setBoxes] = useState([]);
@@ -12,6 +13,7 @@ export default function LockerGrid() {
   const [prefisso, setPrefisso] = useState("");
   const [telefono, setTelefono] = useState("");
   const [confermaTel, setConfermaTel] = useState("");
+  const { t } = useTranslation();
 
   useEffect(() => {
     loadBoxes();
@@ -23,7 +25,7 @@ export default function LockerGrid() {
       setBoxes(allBoxes);
       setError("");
     } catch (err) {
-      setError("Errore nel recupero dei box: " + err.message);
+      setError(t("deposito.error_fetch", { message: err.message }));
     }
   };
 
@@ -31,45 +33,45 @@ export default function LockerGrid() {
 
   const handleDepositaInBox = async () => {
     if (!selectedBox) {
-      setError("Seleziona un box!");
+      setError(t("deposito.select_box_error"));
       return;
     }
 
     if (!codice || codice.length !== 6) {
-      setError("Inserisci un codice di 6 cifre");
+      setError(t("deposito.error_code"));
       return;
     }
 
     if (!prefisso || prefisso.length !== 4) {
-      setError("Scegliere un prefisso valido");
+      setError(t("depositaInBox.error_prefix"));
       return;
     }
 
     if (!telefono || telefono.length !== 10) {
-      setError("il numero di telefono deve essere valido a 10 cifre");
+      setError(t("deposito.error_phone"));
       return;
     }
 
-    if (!confermaTel ||confermaTel !== telefono) {
-      setError("il campo non puo essere vuoto e i due numeri devono essere uguali");
+    if (!confermaTel || confermaTel !== telefono) {
+      setError(t("deposito.error_confirm_phone"));
       return;
     }
 
     try {
       const { numeroBox } = await depositaInBox(selectedBox, codice, telefono); // ✅
-      setMessage(`Deposito completato nel box ${numeroBox}`);
+      setMessage(t("deposito.succes", { numeroBox }));
 
       setError("");
       loadBoxes();
     } catch (err) {
-      setError("Errore durante il deposito: " + err.message);
+      setError(t("deposito.error_deposit", { message: err.message }));
       setMessage("");
     }
   };
 
   return (
     <div className="locker-container">
-      <h1>Gestione Box</h1>
+      <h1>{t("deposito.title")}</h1>
 
       <div className="controls">
         <div className="locker-grid">
@@ -79,7 +81,11 @@ export default function LockerGrid() {
               <button
                 key={box.id}
                 className={`locker-box ${
-                  box.disable ? "disable" : box.used ? "occupied" : "free"
+                  box.disable
+                    ? t("deposito.status.disable")
+                    : box.used
+                    ? t("deposito.status.occupied")
+                    : t("deposito.status.free")
                 } ${isSelected ? "selected" : ""}`}
                 onClick={() => {
                   if (!box.used && !box.disable) setSelectedBox(box.numeroBox);
@@ -89,28 +95,29 @@ export default function LockerGrid() {
                 <div className="locker-number">Box {box.numeroBox}</div>
                 <div className="locker-status">
                   {box.disable
-                    ? "Disattivato"
+                    ? t("deposito.status.disable")
                     : box.used
-                    ? "Occupato"
-                    : "Libero"}
+                    ? t("deposito.status.occupied")
+                    : t("deposito.status.free")}
                 </div>
               </button>
             );
           })}
         </div>
-        <label htmlFor="codice-input"> Inserisci codice </label>
+        <label htmlFor="codice-input"> {t("ritira.title")}</label>
         <input
           id="codice-input"
           type="text"
           maxLength={6}
           value={codice}
           onChange={(e) => setCodice(e.target.value)}
+          placeholder={t("ritira.placeholder_code")}
         />
         <div>
           <label htmlFor="prefisso-telefono">
-            {" "}
-            Inserisci numero di telefono
-          </label>{" "}
+            {t("ritira.phoneLable")}
+            
+          </label>
           <input
             className="prefisso"
             maxLength={4}
@@ -123,16 +130,18 @@ export default function LockerGrid() {
             maxLength={10}
             value={telefono}
             onChange={(e) => setTelefono(e.target.value)}
+             placeholder={t("ritira.placeholder_phone")}
           />
           <input
             type="ConfermaTelefono"
             value={confermaTel}
             maxLength={10}
             onChange={(e) => setConfermaTel(e.target.value)}
+             placeholder={t("ritira.placeholder_phone")}
           />
         </div>
         <button onClick={handleDepositaInBox}>
-          Deposita nel box selezionato
+          {t("deposito.button")}
         </button>
       </div>
 

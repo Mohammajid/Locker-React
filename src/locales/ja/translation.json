@@ -1,0 +1,34 @@
+{
+  "home": {
+    "deposit": "預ける",
+    "withdraw": "引き出す",
+    "administration": "管理者"
+  },
+  "ritira": {
+    "title": "受け取りコードを入力してください",
+    "placeholder_code": "6桁のコード",
+    "phone_title": "電話番号を入力してください",
+    "placeholder_phone": "10桁の電話番号",
+    "submit": "確認",
+    "error_code": "有効な6桁のコードを入力してください。",
+    "error_phone": "有効な10桁の電話番号を入力してください。",
+    "error_generic": "引き出しエラー："
+  },
+  "deposito": {
+    "title": "ロッカー管理",
+    "select_box_error": "ボックスを選択してください！",
+    "error_code": "6桁のコードを入力してください。",
+    "error_prefix": "有効な4桁のプレフィックスを選択してください。",
+    "error_phone": "電話番号は10桁でなければなりません。",
+    "error_confirm_phone": "確認は電話番号と一致する必要があります。",
+    "button": "選択したボックスに預ける",
+    "status": {
+      "disable": "無効",
+      "occupied": "使用中",
+      "free": "空き"
+    },
+    "success": "ボックス {{numeroBox}} への預け入れ完了",
+    "error_fetch": "ボックス取得エラー：{{message}}",
+    "error_deposit": "預け入れエラー：{{message}}"
+  }
+}

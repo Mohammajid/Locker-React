@@ -1,0 +1,33 @@
+html,
+body {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: flex;
+  justify-content: center; /* centro orizzontale */
+  align-items: center; /* centro verticale */
+  min-height: 100vh; /* altezza minima tutta altezza viewport */
+  margin: 0;
+}
+
+.home-container {
+  width: 90%; /* usa percentuale della larghezza */
+  max-width: 1200px; /* massimo */
+  margin: 0 auto; /* centra orizzontalmente */
+  padding: 1rem;
+}
+
+.home-button {
+  width: 100%; /* occupa tutto lo spazio disponibile */
+  max-width: 300px; /* massimo */
+  margin-bottom: 1rem;
+  
+}
+
+.home-button-admin {
+  color: red;
+  font-size: 2rem;
+}

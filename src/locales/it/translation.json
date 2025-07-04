@@ -1,0 +1,34 @@
+{
+  "home": {
+    "deposit": "Deposita",
+    "withdraw": "Ritira",
+    "administration": "Admin"
+  },
+  "ritira": {
+    "title": "Inserisci il codice di ritiro",
+    "placeholder_code": "Codice di 6 cifre",
+    "phone_title": "Inserisci il numero di telefono",
+    "placeholder_phone": "Numero di telefono di 10 cifre",
+    "submit": "Conferma",
+    "error_code": "Inserisci un codice valido di 6 cifre.",
+    "error_phone": "Inserisci un numero di telefono valido di 10 cifre.",
+    "error_generic": "Errore durante il ritiro:"
+  },
+  "deposito": {
+    "title": "Gestione Locker",
+    "select_box_error": "Seleziona un box!",
+    "error_code": "Inserisci un codice di 6 cifre.",
+    "error_prefix": "Scegli un prefisso valido di 4 cifre.",
+    "error_phone": "Il numero di telefono deve essere di 10 cifre.",
+    "error_confirm_phone": "La conferma deve corrispondere al numero di telefono.",
+    "button": "Deposita nel box selezionato",
+    "status": {
+      "disable": "Disabilitato",
+      "occupied": "Occupato",
+      "free": "Libero"
+    },
+    "success": "Deposito completato nel box {{numeroBox}}",
+    "error_fetch": "Errore nel caricamento dei box: {{message}}",
+    "error_deposit": "Errore nel deposito: {{message}}"
+  }
+}

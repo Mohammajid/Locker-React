@@ -1,0 +1,34 @@
+{
+  "home": {
+    "deposit": "إيداع",
+    "withdraw": "سحب",
+    "administration": "مسؤول"
+  },
+  "ritira": {
+    "title": "أدخل رمز الاستلام",
+    "placeholder_code": "رمز من 6 أرقام",
+    "phone_title": "أدخل رقم الهاتف",
+    "placeholder_phone": "رقم هاتف مكون من 10 أرقام",
+    "submit": "تأكيد",
+    "error_code": "يرجى إدخال رمز صالح مكون من 6 أرقام.",
+    "error_phone": "يرجى إدخال رقم هاتف صالح مكون من 10 أرقام.",
+    "error_generic": "خطأ في السحب:"
+  },
+  "deposito": {
+    "title": "إدارة الخزائن",
+    "select_box_error": "يرجى اختيار صندوق!",
+    "error_code": "يرجى إدخال رمز مكون من 6 أرقام.",
+    "error_prefix": "يرجى اختيار بادئة صالحة مكونة من 4 أرقام.",
+    "error_phone": "يجب أن يكون رقم الهاتف مكونًا من 10 أرقام.",
+    "error_confirm_phone": "يجب أن يتطابق التأكيد مع رقم الهاتف.",
+    "button": "الإيداع في الصندوق المختار",
+    "status": {
+      "disable": "معطل",
+      "occupied": "مشغول",
+      "free": "فارغ"
+    },
+    "success": "تم الإيداع في الصندوق رقم {{numeroBox}}",
+    "error_fetch": "خطأ في جلب الصناديق: {{message}}",
+    "error_deposit": "خطأ في الإيداع: {{message}}"
+  }
+}

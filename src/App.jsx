@@ -2,8 +2,9 @@ import React from "react";
 import Home from "./pages/Home";
 import LockerGrid from "./pages/DepositoPage";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import "./App.css";
+import "./styles/App.css";
 import RitiraPage from "./pages/RitiraPage";
+import AdminPage from "./pages/AdminPage";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/deposita" element={<LockerGrid />} />
         <Route path="/ritira" element={<RitiraPage />} />
+        <Route path="admin" element={<AdminPage />} />
       </Routes>
     </Router>
   );

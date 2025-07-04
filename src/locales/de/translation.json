@@ -1,0 +1,34 @@
+{
+  "home": {
+    "deposit": "Einzahlen",
+    "withdraw": "Abheben",
+    "administration": "Admin"
+  },
+  "ritira": {
+    "title": "Geben Sie den Abholcode ein",
+    "placeholder_code": "6-stelliger Code",
+    "phone_title": "Telefonnummer eingeben",
+    "placeholder_phone": "10-stellige Telefonnummer",
+    "submit": "Bestätigen",
+    "error_code": "Bitte geben Sie einen gültigen 6-stelligen Code ein.",
+    "error_phone": "Bitte geben Sie eine gültige 10-stellige Telefonnummer ein.",
+    "error_generic": "Fehler beim Abholen:"
+  },
+  "deposito": {
+    "title": "Schließfachverwaltung",
+    "select_box_error": "Bitte wählen Sie ein Schließfach aus!",
+    "error_code": "Bitte geben Sie einen 6-stelligen Code ein.",
+    "error_prefix": "Bitte wählen Sie eine gültige 4-stellige Vorwahl.",
+    "error_phone": "Die Telefonnummer muss 10 Stellen haben.",
+    "error_confirm_phone": "Die Bestätigung muss mit der Telefonnummer übereinstimmen.",
+    "button": "In ausgewähltes Schließfach einzahlen",
+    "status": {
+      "disable": "Deaktiviert",
+      "occupied": "Belegt",
+      "free": "Frei"
+    },
+    "success": "Einzahlung abgeschlossen im Schließfach {{numeroBox}}",
+    "error_fetch": "Fehler beim Laden der Schließfächer: {{message}}",
+    "error_deposit": "Fehler bei der Einzahlung: {{message}}"
+  }
+}

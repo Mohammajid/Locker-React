@@ -1,0 +1,34 @@
+{
+  "home": {
+    "deposit": "واریز",
+    "withdraw": "برداشت",
+    "administration": "مدیر"
+  },
+  "ritira": {
+    "title": "کد برداشت را وارد کنید",
+    "placeholder_code": "کد ۶ رقمی",
+    "phone_title": "شماره تلفن را وارد کنید",
+    "placeholder_phone": "شماره تلفن ۱۰ رقمی",
+    "submit": "تایید",
+    "error_code": "لطفاً کد معتبر ۶ رقمی وارد کنید.",
+    "error_phone": "لطفاً شماره تلفن معتبر ۱۰ رقمی وارد کنید.",
+    "error_generic": "خطا در برداشت:"
+  },
+  "deposito": {
+    "title": "مدیریت قفل‌ها",
+    "select_box_error": "لطفاً یک قفل را انتخاب کنید!",
+    "error_code": "لطفاً کد ۶ رقمی وارد کنید.",
+    "error_prefix": "لطفاً پیش‌شماره معتبر ۴ رقمی انتخاب کنید.",
+    "error_phone": "شماره تلفن باید ۱۰ رقم باشد.",
+    "error_confirm_phone": "تأیید باید با شماره تلفن مطابقت داشته باشد.",
+    "button": "واریز به قفل انتخاب‌شده",
+    "status": {
+      "disable": "غیرفعال",
+      "occupied": "مشغول",
+      "free": "خالی"
+    },
+    "success": "واریز در قفل شماره {{numeroBox}} انجام شد",
+    "error_fetch": "خطا در دریافت قفل‌ها: {{message}}",
+    "error_deposit": "خطا در واریز: {{message}}"
+  }
+}

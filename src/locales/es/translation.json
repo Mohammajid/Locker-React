@@ -1,0 +1,34 @@
+{
+  "home": {
+    "deposit": "Depositar",
+    "withdraw": "Retirar",
+    "administration": "Admin"
+  },
+  "ritira": {
+    "title": "Ingrese el código de retiro",
+    "placeholder_code": "Código de 6 dígitos",
+    "phone_title": "Ingrese el número de teléfono",
+    "placeholder_phone": "Número de teléfono de 10 dígitos",
+    "submit": "Confirmar",
+    "error_code": "Ingrese un código válido de 6 dígitos.",
+    "error_phone": "Ingrese un número de teléfono válido de 10 dígitos.",
+    "error_generic": "Error durante el retiro:"
+  },
+  "deposito": {
+    "title": "Gestión de Locker",
+    "select_box_error": "¡Seleccione una caja!",
+    "error_code": "Ingrese un código de 6 dígitos.",
+    "error_prefix": "Elija un prefijo válido de 4 dígitos.",
+    "error_phone": "El número de teléfono debe tener 10 dígitos.",
+    "error_confirm_phone": "La confirmación debe coincidir con el número de teléfono.",
+    "button": "Depositar en la caja seleccionada",
+    "status": {
+      "disable": "Deshabilitado",
+      "occupied": "Ocupado",
+      "free": "Libre"
+    },
+    "success": "Depósito completado en la caja {{numeroBox}}",
+    "error_fetch": "Error al obtener las cajas: {{message}}",
+    "error_deposit": "Error en el depósito: {{message}}"
+  }
+}
