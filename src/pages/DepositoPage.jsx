@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { getAllBoxes, depositaInBox } from "../services/api";
+import { useApi } from "../services/api"; 
 import "../styles/App.css";
 import "../styles/Style-deposito.css";
 import { useTranslation } from "react-i18next";
 
 export default function LockerGrid() {
+  const { getAllBoxes, deposita } = useApi(); 
   const [boxes, setBoxes] = useState([]);
   const [selectedBox, setSelectedBox] = useState(null);
   const [codice, setCodice] = useState("");
@@ -28,8 +29,6 @@ export default function LockerGrid() {
       setError(t("deposito.error_fetch", { message: err.message }));
     }
   };
-
-  ///////////////////////////////////////////////////////////////////////////////////////////////
 
   const handleDepositaInBox = async () => {
     if (!selectedBox) {
@@ -58,9 +57,8 @@ export default function LockerGrid() {
     }
 
     try {
-      const { numeroBox } = await depositaInBox(selectedBox, codice, telefono); // ✅
+      const { numeroBox } = await deposita(selectedBox, codice, telefono); 
       setMessage(t("deposito.succes", { numeroBox }));
-
       setError("");
       loadBoxes();
     } catch (err) {
@@ -104,7 +102,8 @@ export default function LockerGrid() {
             );
           })}
         </div>
-        <label htmlFor="codice-input"> {t("ritira.title")}</label>
+
+        <label htmlFor="codice-input">{t("ritira.title")}</label>
         <input
           id="codice-input"
           type="text"
@@ -113,16 +112,16 @@ export default function LockerGrid() {
           onChange={(e) => setCodice(e.target.value)}
           placeholder={t("ritira.placeholder_code")}
         />
+
         <div>
-          <label htmlFor="prefisso-telefono">
-            {t("ritira.phoneLable")}
-            
-          </label>
+          <label htmlFor="prefisso-telefono">{t("ritira.phoneLable")}</label>
           <input
+            id="prefisso-telefono"
             className="prefisso"
             maxLength={4}
             value={prefisso}
             onChange={(e) => setPrefisso(e.target.value)}
+            placeholder="+39"
           />
           <input
             id="telefono-input"
@@ -130,16 +129,18 @@ export default function LockerGrid() {
             maxLength={10}
             value={telefono}
             onChange={(e) => setTelefono(e.target.value)}
-             placeholder={t("ritira.placeholder_phone")}
+            placeholder={t("ritira.placeholder_phone")}
           />
           <input
-            type="ConfermaTelefono"
+            id="conferma-telefono-input"
+            type="text"
             value={confermaTel}
             maxLength={10}
             onChange={(e) => setConfermaTel(e.target.value)}
-             placeholder={t("ritira.placeholder_phone")}
+            placeholder={t("ritira.placeholder_phone")}
           />
         </div>
+
         <button onClick={handleDepositaInBox}>
           {t("deposito.button")}
         </button>

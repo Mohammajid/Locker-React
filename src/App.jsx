@@ -1,22 +1,32 @@
-import React from "react";
-import Home from "./pages/Home";
-import LockerGrid from "./pages/DepositoPage";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import "./styles/App.css";
-import RitiraPage from "./pages/RitiraPage";
-import AdminPage from "./pages/AdminPage";
+// src/App.jsx
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { AuthProvider } from './contexts/AuthContext';
+import ProtectedRoute from './components/ProtectedRoute';
+import AdminPage from './pages/AdminPage';
+import LoginPage from './pages/LoginPage';
+import HomePage from './pages/Home';
+import Ritira from "./pages/RitiraPage";
+import DepositoBox from './pages/DepositoPage'; // <-- Assicurati che il file esista
 
-function App() {
+export default function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/deposita" element={<LockerGrid />} />
-        <Route path="/ritira" element={<RitiraPage />} />
-        <Route path="admin" element={<AdminPage />} />
-      </Routes>
-    </Router>
+    <AuthProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="login" element={<LoginPage />} />
+          <Route path="/ritira" element={<Ritira />} /> 
+          <Route 
+            path="admin" 
+            element={
+              <ProtectedRoute>
+                <AdminPage />
+              </ProtectedRoute>
+            } 
+          />
+          <Route path="deposita" element={<DepositoBox />} /> {/* <-- Aggiunta */}
+        </Routes>
+      </BrowserRouter>
+    </AuthProvider>
   );
 }
-
-export default App;

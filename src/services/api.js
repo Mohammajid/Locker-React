@@ -1,112 +1,114 @@
-const API_URL = "http://localhost:8080/api/user/user/admin";
+import { useContext } from "react";
+import { AuthContext } from "../contexts/AuthContext";
 
-const ADMIN_USER = "admin";
-const ADMIN_PASS = "admin123";
+function useFetchJson() {
+  const { getAuthHeader } = useContext(AuthContext);
 
-function getAuthHeader() {
+  return async function fetchJson(url, options = {}, withAuth = false) {
+    const headers = {
+      "Content-Type": "application/json",
+      ...(withAuth ? getAuthHeader() : {}),
+      ...(options.headers || {}),
+    };
+    const finalOptions = { ...options, headers };
+
+    if( options.body && typeof options.body === "object") {
+      finalOptions.body = JSON.stringify(options.body);
+    }
+  
+
+     const res = await fetch(url, finalOptions);
+
+    const data = await res.json();
+    if (!res.ok) {
+      throw new Error(data.message || "Errore nella richiesta");
+    }
+
+    return data;
+  };
+}
+
+export function useApi() {
+  const fetchJson = useFetchJson();
+  const USER_API = "http://localhost:8080/api/user";
+  const ADMIN_API = "http://localhost:8080/api/admin";
+
   return {
-    Authorization: "Basic " + btoa(`${ADMIN_USER}:${ADMIN_PASS}`),
+    // ==== USER ====
+
+    getAllBoxes: () =>
+      fetchJson(`${USER_API}/all`, {}, false).then((j) => j.data),
+
+    deposita: (box, codice, telefono) =>
+      fetchJson(
+        `${USER_API}/deposita/${box}`,
+        {
+          method: "POST",
+          body: { codice, telefono },
+        },
+        false
+      ).then((j) => j.data),
+
+    ritira: (codice, telefono) =>
+      fetchJson(
+        `${USER_API}/ritira`,
+        {
+          method: "POST",
+          body: { codice, telefono },
+        },
+        false
+      ).then((j) => j.message),
+
+    // ==== ADMIN ====
+
+    getAllBoxesAdmin: () =>
+      fetchJson(`${ADMIN_API}/all`, {}, true).then((j) => j.data),
+
+    getBoxLiberiAdmin: () =>
+      fetchJson(`${ADMIN_API}/liberi`, {}, true).then((j) => j.data),
+
+    getBoxOccupatiAdmin: () =>
+      fetchJson(`${ADMIN_API}/occupati`, {}, true).then((j) => j.data),
+
+    getBoxDisattivatiAdmin: () =>
+      fetchJson(`${ADMIN_API}/disattivati`, {}, true).then((j) => j.data),
+
+    createBoxAdmin: (list) =>
+      fetchJson(
+        `${ADMIN_API}/addAll`,
+        {
+          method: "POST",
+          body: JSON.stringify(list),
+        },
+        true
+      ).then((j) => j.data),
+
+    updateBoxAdmin: (id, data) =>
+      fetchJson(
+        `${ADMIN_API}/${id}`,
+        {
+          method: "PUT",
+          body: data,
+        },
+        true
+      ).then((j) => j.data),
+
+    deleteBoxAdmin: (id) =>
+      fetchJson(
+        `${ADMIN_API}/${id}`,
+        {
+          method: "DELETE",
+        },
+        true
+      ).then((j) => j.message),
+
+    resetAllAdmin: () =>
+      fetchJson(
+        `${ADMIN_API}/resetAll`,
+        {
+          method: "DELETE",
+        },
+        true
+      ).then((j) => j.message),
   };
-}
-
-async function fetchJson(url, options = {}, withAuth = false) {
-  const headers = {
-    "Content-Type": "application/json",
-    ...(withAuth ? getAuthHeader() : {}),
-    ...options.headers,
-  };
-
-  const res = await fetch(url, { ...options, headers });
-  let json;
-  try {
-    json = await res.json();
-  } catch {
-    // Se la risposta non è JSON valido
-    throw new Error("Risposta non valida dal server");
-  }
-
-  if (!res.ok) {
-    throw new Error(json.message || "Errore nella richiesta");
-  }
-
-  return json;
-}
-
-// UTENTI (anonimi)
-export async function getAllBoxes() {
-  const json = await fetchJson(`${API_URL}/all`);
-  return json.data;
-}
-
-export async function depositaInBox(numeroBox, codice, telefono) {
-  const json = await fetchJson(
-    `${API_URL}/deposita/${numeroBox}`,
-    {
-      method: "POST",
-      body: JSON.stringify({ codice, telefono }),
-    }
-  );
-  return json.data;
-}
-
-export async function ritira(codice, telefono) {
-  const json = await fetchJson(
-    `${API_URL}/ritira`,
-    {
-      method: "POST",
-      body: JSON.stringify({ codice: Number(codice), telefono: Number(telefono) }),
-    }
-  );
-  return json.message;
-}
-
-// ADMIN (con autenticazione Basic Auth)
-export async function getAllBoxesAdmin() {
-  const json = await fetchJson(`${API_URL}/all`, {}, true);
-  return json.data;
-}
-
-export async function getBoxLiberiAdmin() {
-  const json = await fetchJson(`${API_URL}/liberi`, {}, true);
-  return json.data;
-}
-
-export async function getBoxOccupatiAdmin() {
-  const json = await fetchJson(`${API_URL}/occupati`, {}, true);
-  return json.data;
-}
-
-export async function createBoxAdmin(boxData) {
-  const json = await fetchJson(
-    `${API_URL}/create`,
-    {
-      method: "POST",
-      body: JSON.stringify(boxData),
-    },
-    true
-  );
-  return json.data;
-}
-
-export async function updateBoxAdmin(numeroBox, boxData) {
-  const json = await fetchJson(
-    `${API_URL}/update/${numeroBox}`,
-    {
-      method: "PUT",
-      body: JSON.stringify(boxData),
-    },
-    true
-  );
-  return json.data;
-}
-
-export async function deleteBoxAdmin(numeroBox) {
-  const json = await fetchJson(
-    `${API_URL}/delete/${numeroBox}`,
-    {
-      method: "DELETE",
-    },
-    true
-  );
-  return json.message;
 }
